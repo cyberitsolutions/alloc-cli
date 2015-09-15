@@ -412,7 +412,7 @@ class alloc(object):
         # empty string.
         r = defaultdict(str)
         for a, b in row.items():
-            r[a] = str(b or '')
+            r[a] = b or ''
         return r
 
     def print_task(self, taskID, prependEmailHeader=False, children=False):
