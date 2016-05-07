@@ -17,7 +17,7 @@ alloc-cli can be invoked by running:
 
 `./alloc <option-here>`
 
-For a lit of options, run:
+For a list of options, run:
 
 `./alloc --help`
 
