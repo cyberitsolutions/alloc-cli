@@ -1,5 +1,7 @@
 # alloc-cli
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/97940338acbe4f709717d431d75c478a)](https://www.codacy.com/app/cjbayliss/alloc-cli?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cyberitsolutions/alloc-cli&amp;utm_campaign=Badge_Grade)
+
 ## A CLI that uses alloc's API
 
 The most commonly used interface for allocPSA is the web interface, which is
