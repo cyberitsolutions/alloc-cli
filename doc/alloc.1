@@ -1,0 +1,176 @@
+'\" t
+.\"     Title: alloc
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.79.1 <http://docbook.sf.net/>
+.\"      Date: 05/08/2016
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "ALLOC" "1" "05/08/2016" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+alloc \- A CLI that uses allocPSA\*(Aqs API
+.SH "SYNOPSIS"
+.sp
+.nf
+alloc work              [OPTIONS]
+alloc comment           [OPTIONS]
+alloc edit              [OPTIONS]
+alloc view              [OPTIONS]
+alloc projects          [OPTIONS]
+alloc tasks             [OPTIONS]
+alloc timesheets        [OPTIONS]
+alloc invoices          [OPTIONS]
+alloc accounts          [OPTIONS]
+alloc browse            [OPTIONS]
+alloc mbox              [OPTIONS]
+alloc submit            [OPTIONS]
+alloc subscriptions     [OPTIONS]
+alloc ktokens           [OPTIONS]
+alloc version           [OPTIONS]
+alloc \-\-help
+.fi
+.SH "DESCRIPTION"
+.sp
+The most commonly used interface for allocPSA is the web interface, which is accessible from your web browser\&. Additionally there is an email interface that can be used to perform certain functions in alloc \- usually by planting specific keywords in the subject line\&.
+.sp
+Finally, there is also a command line interface for alloc, alloc\-cli, also know simply as alloc\&.
+.SH "OPTIONS"
+.PP
+work
+.RS 4
+Add time to a time sheet\&. Create the time sheet if necessary\&.
+.RE
+.PP
+comment
+.RS 4
+Add a new comment to a task, project, time sheet or client\&.
+.RE
+.PP
+edit
+.RS 4
+Modify an entity\&.
+.RE
+.PP
+view
+.RS 4
+View an entity\&.
+.RE
+.PP
+projects
+.RS 4
+Print a list of projects\&.
+.RE
+.PP
+tasks
+.RS 4
+Print a list of tasks\&.
+.RE
+.PP
+timesheets
+.RS 4
+Print a list of time sheets\&.
+.RE
+.PP
+invoices
+.RS 4
+Print a list of invoices\&.
+.RE
+.PP
+accounts
+.RS 4
+Print a list of your TF accounts\&.
+.RE
+.PP
+browse
+.RS 4
+Provide web browser access to particular entities\&.
+.RE
+.PP
+mbox
+.RS 4
+Download a task\(cqs emails to an mbox file\&.
+.RE
+.PP
+submit
+.RS 4
+Submit time sheets forwards\&. Read time sheets from standard in\&.
+.RE
+.PP
+subscriptions
+.RS 4
+Modify interested party subscriptions for an email address\&.
+.RE
+.PP
+ktokens
+.RS 4
+Retrieve token information\&.
+.RE
+.PP
+version
+.RS 4
+View the version of the cli and server\&.
+.RE
+.PP
+\-\-help
+.RS 4
+Pass this to get help\&. You can pass it after a command to get help on a module, e\&.g\&.: $ alloc work \-\-help
+.RE
+.SH "EXAMPLES"
+.sp
+Display the list of modules:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ alloc \-\-help
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Display help for a module:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ alloc module \-\-help
+.fi
+.if n \{\
+.RE
+.\}
+.SH "FILES"
+.PP
+\fI~/\&.alloc/config\fR
+.RS 4
+User configuration file\&.
+.RE
+.SH "BUGS"
+.sp
+Please report bugs at: https://github\&.com/cyberitsolutions/alloc\-cli/issues
+.SH "COPYRIGHT"
+.sp
+Copyright (c) 2011\-2016 Alex Lance <code@alexlance\&.com>, Cyber IT Solutions <info@cyber\&.com\&.au>
+.sp
+alloc\-cli is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version\&.
