@@ -77,22 +77,22 @@ class alloc_output_handler:
             # Callback function to return the actual value that should be sorted on.
             try:
                 val = row[1][f]
-            except:
+            except Exception:
                 try:
                     val = row[1][inverted_field_names[f]]
-                except:
+                except Exception:
                     return ''
 
             # val is the actual value in the field
             try:
                 return int(val)
-            except:
+            except Exception:
                 try:
                     return float(val)
-                except:
+                except Exception:
                     try:
                         return val.lower()
-                    except:
+                    except Exception:
                         return val
 
         for f in sortby:
@@ -229,7 +229,7 @@ class alloc_output_handler:
                     try:
                         value = "[" + row[v].replace(", ", "][") + "]"
                         success = True
-                    except:
+                    except Exception:
                         value = row[v]
                         success = True
                 else:

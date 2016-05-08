@@ -131,7 +131,7 @@ In this example the recipients are going to be internal only, except for Clyde
                     entity, {entity + 'ID': entityID}).popitem()
                 self.msg('Client: ' + v['clientID'] + ' ' + v['clientName'])
 
-        except:
+        except Exception:
             self.die("No " + entity + " found with ID " + entityID)
 
         # Assume 'default' if there's no --to
