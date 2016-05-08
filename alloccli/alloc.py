@@ -307,7 +307,7 @@ class alloc(object):
             if self.client_name.upper() + '_TRUNC' in os.environ:
                 self.config[
                     self.client_name + '_trunc'] = os.environ.get(self.client_name.upper() + '_TRUNC')
-        except:
+        except Exception:
             pass
 
     def create_transforms(self, trans_file):
@@ -334,7 +334,7 @@ class alloc(object):
             sys.path.append(self.alloc_dir)
             from transforms import user_transforms
             self.user_transforms = user_transforms
-        except:
+        except Exception:
             self.user_transforms = {}
 
     def create_session(self, sessID):
@@ -353,7 +353,7 @@ class alloc(object):
             read_config = open(config_file)
             sessID = read_config.read().strip()
             read_config.close()
-        except:
+        except Exception:
             sessID = ""
         return sessID
 
@@ -552,7 +552,7 @@ class alloc(object):
                     pass
                 else:
                     ok = False
-            except:
+            except Exception:
                 ok = False
         return ok
 
@@ -561,10 +561,10 @@ class alloc(object):
         rtn = obj
         try:
             rtn = float(obj)
-        except:
+        except Exception:
             try:
                 rtn = int(obj)
-            except:
+            except Exception:
                 rtn = 0
         return rtn
 
@@ -577,7 +577,7 @@ class alloc(object):
 
         try:
             net = netrc().hosts[urlparse(self.url).hostname]
-        except:
+        except Exception:
             net = ('', '', '')
 
         net_u = net[0]
@@ -655,7 +655,7 @@ class alloc(object):
         rtn = urllib2.urlopen(self.url, urllib.urlencode(args)).read()
         try:
             rtn = simplejson.loads(rtn)
-        except:
+        except Exception:
             self.err("Error(1): %s" % rtn)
             if args and 'password' in args:
                 args['password'] = '********'
@@ -671,7 +671,7 @@ class alloc(object):
             rtn2 = urllib2.urlopen(self.url, urllib.urlencode(args)).read()
             try:
                 return simplejson.loads(rtn2)
-            except:
+            except Exception:
                 self.err("Error(2): %s" % rtn2)
                 if args and 'password' in args:
                     args['password'] = '********'
@@ -823,7 +823,7 @@ class alloc(object):
         # ['>=','2011-10-10'].
         try:
             comparator, d = re.findall(r'[\d|-]+|\D+', date)
-        except:
+        except Exception:
             comparator = '='
             d = date
         return d.strip(), comparator.strip()

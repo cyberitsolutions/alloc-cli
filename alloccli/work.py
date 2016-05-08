@@ -111,7 +111,7 @@ Unfortunately doing so appears to flush the input buffer!)
             try:
                 k_, v = self.get_list(
                     'task', {'taskID': o['task'], 'taskView': 'prioritised'}).popitem()
-            except:
+            except Exception:
                 self.die("Task not found.")
             self.msg(
                 v['taskTypeID'] + ': ' + v['taskID'] + ' ' + v['taskName'])
