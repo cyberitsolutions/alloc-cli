@@ -1,0 +1,85 @@
+.TH ALLOC "1" "May 2016" "alloc 1.8.9" "User Commands"
+.SH NAME
+alloc \- A CLI that uses allocPSA's API
+.SH SYNOPSIS
+.B alloc
+\fI\,command \/\fR[\fI\,OPTIONS\/\fR]
+.SH DESCRIPTION
+Select one of the following commands:
+.TP
+work
+Add time to a time sheet. Create the time sheet if necessary.
+.TP
+comment
+Add a new comment to a task, project, time sheet or client.
+.TP
+edit
+Modify an entity.
+.TP
+view
+View an entity.
+.TP
+projects
+Print a list of projects.
+.TP
+tasks
+Print a list of tasks.
+.TP
+timesheets
+Print a list of time sheets.
+.TP
+reminders
+Print a list of reminders.
+.TP
+invoices
+Print a list of invoices.
+.TP
+accounts
+Print a list of your TF accounts.
+.TP
+browse
+Provide web browser access to particular entities.
+.TP
+mbox
+Download a task's emails to an mbox file.
+.TP
+submit
+Submit time sheets forwards. Read time sheets from standard in.
+.TP
+subscriptions
+Modify interested party subscriptions for an email address.
+.TP
+ktokens
+Retrieve token information.
+.TP
+task
+Add or edit a task.
+.TP
+item
+Add or edit a time sheet item.
+.TP
+reminder
+Add or edit a reminder.
+.TP
+version
+View the version of the cli and server.
+.SH "EXAMPLES"
+.sp
+Display the list of modules:
+.sp
+$ alloc \-\-help
+.sp
+Display help for a command:
+.sp
+$ alloc command \-\-help
+.SH "BUGS"
+.sp
+Please report bugs at: https://github\&.com/cyberitsolutions/alloc\-cli/issues
+.SH "COPYRIGHT"
+.sp
+Copyright (c) 2011\-2016 Alex Lance <code@alexlance\&.com>, Cyber IT Solutions <info@cyber\&.com\&.au>
+.sp
+alloc\-cli is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version\&.
