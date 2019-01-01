@@ -1,5 +1,5 @@
 """alloccli subcommand for viewing the details of a single entity."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class view(alloc):
@@ -35,4 +35,4 @@ alloc view --task 1234"""
         self.authenticate()
 
         if o['task']:
-            print self.print_task(o['task'], children=o['children'])
+            print(self.print_task(o['task'], children=o['children']))

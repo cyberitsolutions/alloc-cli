@@ -191,7 +191,7 @@ class alloc_output_handler:
         if alloc.csv:
             csv_table = csv.writer(sys.stdout, lineterminator="\n")
             for row in rows:
-                csv_table.writerow([unicode(s).encode('utf-8') for s in row])
+                csv_table.writerow([str(s).encode('utf-8') for s in row])
 
         else:
             table = PrettyTable()
@@ -213,7 +213,7 @@ class alloc_output_handler:
                         alloc, rows, field_names, width)
             for row in rows:
                 table.add_row(row)
-            print unicode(table.get_string(header=True)).encode('utf-8')
+            print(str(table.get_string(header=True)).encode('utf-8'))
             # http://stackoverflow.com/questions/15793886/how-to-avoid-a-broken-pipe-error-when-printing-a-large-amount-of-formatted-data
             sys.stdout.flush()
 

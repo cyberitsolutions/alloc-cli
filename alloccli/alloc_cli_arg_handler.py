@@ -125,13 +125,13 @@ class alloc_cli_arg_handler:
 
         # If --help print help and die
         if rtn['help']:
-            print self.get_subcommand_help(command_list, ops, s)
+            print(self.get_subcommand_help(command_list, ops, s))
             sys.exit(0)
 
         # If --list-option print options and die
         if 'list-option' in rtn and rtn['list-option']:
             for opt in all_ops_list:
-                print opt
+                print(opt)
             sys.exit(0)
 
         # If --csv tell the alloc object about it

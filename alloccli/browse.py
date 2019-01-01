@@ -1,7 +1,7 @@
 """alloccli subcommand for launching your $BROWSER at alloc."""
 import os
 from sys import stdout
-from alloc import alloc
+from .alloc import alloc
 
 
 class browse(alloc):
@@ -94,7 +94,7 @@ alloc browse --time 213'''
 
         # If we're redirecting stdout eg -t 123 >task123.html
         if not stdout.isatty():
-            print self.get_alloc_html(url)
+            print(self.get_alloc_html(url))
 
         elif url:
             browser = ''

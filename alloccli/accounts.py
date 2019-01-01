@@ -1,5 +1,5 @@
 """alloccli subcommand for TF accounts."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class accounts(alloc):
@@ -53,7 +53,7 @@ class accounts(alloc):
             if transactions:
                 self.print_table(
                     "transaction", transactions, fields, "transactionDate")
-                print "num rows:", len(transactions)
+                print("num rows:", len(transactions))
 
         # Get tf (tagged fund)
         else:

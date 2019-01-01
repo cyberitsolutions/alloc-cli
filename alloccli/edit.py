@@ -1,5 +1,5 @@
 """alloccli subcommand for editing alloc entities."""
-from alloc import alloc
+from .alloc import alloc
 
 # edit.py is BEING DEPRECATED. Don't make any non-critical changes to this
 # file.

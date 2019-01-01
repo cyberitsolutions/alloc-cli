@@ -3,16 +3,16 @@ import os
 import sys
 import simplejson
 import re
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import datetime
-import ConfigParser
+import configparser
 import subprocess
 from netrc import netrc
-from urlparse import urlparse
+from urllib.parse import urlparse
 from collections import defaultdict
-from alloc_output_handler import alloc_output_handler
-from alloc_cli_arg_handler import alloc_cli_arg_handler
+from .alloc_output_handler import alloc_output_handler
+from .alloc_cli_arg_handler import alloc_cli_arg_handler
 
 
 class alloc(object):
@@ -268,17 +268,17 @@ class alloc(object):
         if self.http_password:
             # create a password manager
             top_level_url = "/".join(self.url.split("/")[0:3])
-            password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
+            password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
             password_mgr.add_password(
                 None, top_level_url, self.http_username, self.http_password)
-            handler = urllib2.HTTPBasicAuthHandler(password_mgr)
-            self.url_opener = urllib2.build_opener(handler)
+            handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
+            self.url_opener = urllib.request.build_opener(handler)
         else:
-            self.url_opener = urllib2.build_opener()
+            self.url_opener = urllib.request.build_opener()
 
         self.url_opener.addheaders = [
             ('User-agent', self.client_name + '-cli %s' % self.username)]
-        urllib2.install_opener(self.url_opener)
+        urllib.request.install_opener(self.url_opener)
 
     def create_config(self, config_file):
         # Create a default ~/.alloc/config file.
@@ -297,7 +297,7 @@ class alloc(object):
 
     def load_config(self, config_file):
         # Read the ~/.alloc/config file and load it into self.config[].
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read([config_file])
         section = os.environ.get(self.client_name.upper()) or 'main'
         try:
@@ -640,19 +640,19 @@ class alloc(object):
         try:
             self.dbg("make_request(): " + str(args))
             self.url_opener.open(self.url)
-        except urllib2.HTTPError, e:
+        except urllib.error.HTTPError as e:
             self.err(str(e))
             self.err("Possibly a bad username or password for HTTP AUTH")
             self.err("The settings " + self.client_name.upper() +
                      "_HTTP_USER and " + self.client_name.upper() + "_HTTP_PASS are required.")
             self.die(
                 "Set them either in the shell environment or in your ~/." + self.client_name + "/config")
-        except Exception, e:
+        except Exception as e:
             self.die(str(e))
 
         args["client_version"] = self.client_version
         args["sessID"] = self.sessID
-        rtn = urllib2.urlopen(self.url, urllib.urlencode(args)).read()
+        rtn = urllib.request.urlopen(self.url, urllib.parse.urlencode(args)).read()
         try:
             rtn = simplejson.loads(rtn)
         except Exception:
@@ -668,7 +668,7 @@ class alloc(object):
             self.authenticate()
             args['sessID'] = self.sessID
             self.dbg("executing: %s" % args)
-            rtn2 = urllib2.urlopen(self.url, urllib.urlencode(args)).read()
+            rtn2 = urllib.request.urlopen(self.url, urllib.parse.urlencode(args)).read()
             try:
                 return simplejson.loads(rtn2)
             except Exception:
@@ -689,7 +689,7 @@ class alloc(object):
 
     def get_alloc_html(self, url):
         # Perform a direct fetch of an alloc page, ala wget/curl.
-        return urllib2.urlopen(url).read()
+        return urllib.request.urlopen(url).read()
 
     def today(self):
         # Wrapper to return the date, so I don't have to import datetime into
@@ -699,13 +699,13 @@ class alloc(object):
     def msg(self, s):
         # Print a message to the screen (stdout).
         if not self.quiet:
-            print "--- " + str(s)
+            print("--- " + str(s))
             sys.stdout.flush()
 
     def yay(self, s):
         # Print a success message to the screen (stdout).
         if not self.quiet:
-            print ":-] " + str(s)
+            print(":-] " + str(s))
             sys.stdout.flush()
 
     def err(self, s):
@@ -720,7 +720,7 @@ class alloc(object):
     def dbg(self, s):
         # Print a message to the screen (stdout) for debugging only.
         if self.debug:
-            print "DBG " + str(s)
+            print("DBG " + str(s))
             sys.stdout.flush()
 
     def parse_email(self, email):

@@ -1,5 +1,5 @@
 """alloccli subcommand for editing alloc reminders."""
-from alloc import alloc
+from .alloc import alloc
 import re
 
 

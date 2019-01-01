@@ -1,6 +1,6 @@
 """alloccli subcommand for submitting time sheets."""
 import sys
-from alloc import alloc
+from .alloc import alloc
 
 
 class submit(alloc):

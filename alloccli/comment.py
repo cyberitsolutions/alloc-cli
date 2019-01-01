@@ -1,5 +1,5 @@
 """alloccli subcommand for adding comments."""
-from alloc import alloc
+from .alloc import alloc
 import sys
 
 

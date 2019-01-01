@@ -1,5 +1,5 @@
 """alloccli subcommand for viewing a list of tasks."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class tasks(alloc):
