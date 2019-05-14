@@ -263,8 +263,7 @@ class alloc(object):
             self.dbg("CONF: " + k + ": " + v)
 
     def initialize_http_connection(self):
-        # This is for a https connection with basic http auth,
-        # it is not the actual alloc user login credentials
+        """Initialize a https connection with basic http authentication."""
         if self.http_password:
             # create a password manager
             top_level_url = "/".join(self.url.split("/")[0:3])
@@ -281,7 +280,7 @@ class alloc(object):
         urllib2.install_opener(self.url_opener)
 
     def create_config(self, config_file):
-        # Create a default ~/.alloc/config file.
+        """Create a default ~/.alloc/config file."""
         self.dbg("Creating and populating: " + config_file)
         default = "[main]"
         default += "\n#url: http://" + self.client_name + "/services/json.php"
@@ -296,7 +295,7 @@ class alloc(object):
         write_config.close()
 
     def load_config(self, config_file):
-        # Read the ~/.alloc/config file and load it into self.config[].
+        """Read the ~/.alloc/config file and load it into self.config[]."""
         config = ConfigParser.ConfigParser()
         config.read([config_file])
         section = os.environ.get(self.client_name.upper()) or 'main'
@@ -311,7 +310,7 @@ class alloc(object):
             pass
 
     def create_transforms(self, trans_file):
-        # Create a default ~/.alloc/transforms.py file for field manipulation.
+        """Create a default ~/.alloc/transforms.py file for field manipulation."""
         if os.path.exists(self.alloc_dir + "transforms") and not os.path.exists(self.alloc_dir + "transforms.py"):
             # upgrade old transforms to transforms.py
             self.dbg("Renaming: " + self.alloc_dir + "transforms" +
@@ -329,7 +328,7 @@ class alloc(object):
             write_trans.close()
 
     def load_transforms(self):
-        # Load the ~/.alloc/transforms.py module into self.user_transforms.
+        """Load the ~/.alloc/transforms.py module into self.user_transforms."""
         try:
             sys.path.append(self.alloc_dir)
             from transforms import user_transforms
@@ -338,7 +337,7 @@ class alloc(object):
             self.user_transforms = {}
 
     def create_session(self, sessID):
-        # Create a ~/.alloc/session file to store the alloc session key.
+        """Create a ~/.alloc/session file to store the alloc session key."""
         old_sessID = self.load_session(self.alloc_dir + "session")
         if not old_sessID or old_sessID != sessID:
             self.dbg("Writing to: " + self.alloc_dir + "session: " + sessID)
@@ -348,7 +347,7 @@ class alloc(object):
             write_session.close()
 
     def load_session(self, config_file):
-        # Read the ~/.alloc/session and return the alloc session ID.
+        """Read the ~/.alloc/session and return the alloc session ID."""
         try:
             read_config = open(config_file)
             sessID = read_config.read().strip()
@@ -358,7 +357,7 @@ class alloc(object):
         return sessID
 
     def search_for_project(self, projectName, personID=None, die=True):
-        # Search for a project like *projectName*.
+        """Search for a project like *projectName*."""
         if projectName:
             ops = {}
             if personID:
@@ -379,7 +378,7 @@ class alloc(object):
                 return projects.keys()[0]
 
     def search_for_task(self, ops):
-        # Search for a task like *taskName*.
+        """Search for a task like *taskName*."""
         if "taskName" in ops:
             tasks = self.get_list("task", ops)
 
@@ -394,7 +393,7 @@ class alloc(object):
                 return tasks.keys()[0]
 
     def search_for_client(self, ops):
-        # Search for a client like *clientName*.
+        """Search for a client like *clientName*."""
         if "clientName" in ops:
             clients = self.get_list("client", ops)
 
@@ -408,15 +407,14 @@ class alloc(object):
                 return clients.keys()[0]
 
     def sloppydict(self, row):
-        # Coerce a dict with perhaps missing keys or a value of None to an
-        # empty string.
+        """Coerce a dict with perhaps missing keys or a value of None to an empty string."""
         r = defaultdict(str)
         for a, b in row.items():
             r[a] = str(b or '')
         return r
 
     def print_task(self, taskID, prependEmailHeader=False, children=False):
-        # Return a plaintext view of a task and its details.
+        """Return a plaintext view of a task and its details."""
         rtn = self.get_list(
             'task', {'taskID': taskID, 'taskView': 'prioritised', 'showTimes': True})
 
@@ -514,17 +512,17 @@ class alloc(object):
         return final_str
 
     def get_args(self, command_list, ops, s):
-        # Wrapper for handling command line arguments.
+        """Wrapper for handling command line arguments."""
         a = alloc_cli_arg_handler()
         return a.get_args(self, command_list, ops, s)
 
     def print_table(self, entity, rows, only_these_fields, sort=False, transforms=None):
-        # Wrapper for printing the output to the screen in a table or csv.
+        """Wrapper for printing the output to the screen in a table or csv."""
         t = alloc_output_handler()
         return t.print_table(self, entity, rows, only_these_fields, sort, transforms)
 
     def get_my_personID(self, nick=None):
-        # Get current user's personID.
+        """Get current user's personID."""
         ops = {}
         ops["username"] = self.username
         if nick:
@@ -535,8 +533,8 @@ class alloc(object):
             return i
 
     def is_num(self, obj):
-        # Return True is the obj is numeric looking, or it obj is a list of numbers.#
-        #
+        """Return True is the obj is numeric looking, or it obj is a list of numbers."""
+
         # There's got to be a better way to tell if something is a number
         # if not a list, force it to a list
         if not isinstance(obj, list):
@@ -557,7 +555,7 @@ class alloc(object):
         return ok
 
     def to_num(self, obj):
-        # Gently coerce obj into a number.
+        """Gently coerce obj into a number."""
         rtn = obj
         try:
             rtn = float(obj)
@@ -569,7 +567,7 @@ class alloc(object):
         return rtn
 
     def get_credentials(self):
-        # Obtain user's alloc login and http auth credentials.
+        """Obtain user's alloc login and http auth credentials."""
         con_u = self.config.get(self.client_name.lower() + '_user')
         con_p = self.config.get(self.client_name.lower() + '_pass')
         con_hu = self.config.get(self.client_name.lower() + '_http_user')
@@ -606,7 +604,7 @@ class alloc(object):
         return u, p, hu, hp
 
     def get_list(self, entity, options):
-        # The canonical method of retrieving a list of entities from alloc.
+        """The canonical method of retrieving a list of entities from alloc."""
         options["skipObject"] = '1'
         options["return"] = "array"
         args = {}
@@ -616,7 +614,7 @@ class alloc(object):
         return self.make_request(args)
 
     def authenticate(self):
-        # Perform an authentication against the alloc server.
+        """Perform an authentication against the alloc server."""
         self.dbg("calling authenticate()")
         self.username, self.password, self.http_username, self.http_password = self.get_credentials()
         self.initialize_http_connection()
@@ -636,7 +634,7 @@ class alloc(object):
             self.die("Error authenticating: %s" % rtn)
 
     def make_request(self, args):
-        # Perform an HTTP request to the alloc server.
+        """Perform an HTTP request to the alloc server."""
         try:
             self.dbg("make_request(): " + str(args))
             self.url_opener.open(self.url)
@@ -679,7 +677,7 @@ class alloc(object):
         return rtn
 
     def get_people(self, people, entity="", entityID=""):
-        # Get a list of people.
+        """Get a list of people."""
         args = {}
         args["options"] = people
         args["method"] = "get_people"
@@ -688,44 +686,42 @@ class alloc(object):
         return self.make_request(args)
 
     def get_alloc_html(self, url):
-        # Perform a direct fetch of an alloc page, ala wget/curl.
+        """Perform a direct fetch of an alloc page, ala wget/curl."""
         return urllib2.urlopen(url).read()
 
     def today(self):
-        # Wrapper to return the date, so I don't have to import datetime into
-        # all the modules.
+        """Wrapper to return the date, so I don't have to import datetime into all the modules."""
         return datetime.date.today()
 
     def msg(self, s):
-        # Print a message to the screen (stdout).
+        """Print a message to the screen (stdout)."""
         if not self.quiet:
             print "--- " + str(s)
             sys.stdout.flush()
 
     def yay(self, s):
-        # Print a success message to the screen (stdout).
+        """Print a success message to the screen (stdout)."""
         if not self.quiet:
             print ":-] " + str(s)
             sys.stdout.flush()
 
     def err(self, s):
-        # Print a failure message to the screen (stderr).
+        """Print a failure message to the screen (stderr)."""
         sys.stderr.write("!!! " + str(s) + "\n")
 
     def die(self, s):
-        # Print a failure message to the screen (stderr) and then halt.
+        """Print a failure message to the screen (stderr) and then halt."""
         self.err(s)
         sys.exit(1)
 
     def dbg(self, s):
-        # Print a message to the screen (stdout) for debugging only.
+        """Print a message to the screen (stdout) for debugging only."""
         if self.debug:
             print "DBG " + str(s)
             sys.stdout.flush()
 
     def parse_email(self, email):
-        # Parse an email address from this: Jon Smit <js@example.com> into:
-        # addr, name.
+        """Parse an email address from this: Jon Smit <js@example.com> into: addr, name."""
         addr = ''
         name = ''
         bits = email.split(' ')
@@ -747,7 +743,7 @@ class alloc(object):
         return addr, name
 
     def handle_server_response(self, rtn, verbose):
-        # If server returns a message, print it out
+        """If server returns a message, print it out"""
         if rtn and 'status' in rtn and 'message' in rtn:
             if isinstance(rtn["status"], list):
                 k = 0
@@ -761,7 +757,7 @@ class alloc(object):
                 meth(rtn['message'])
 
     def parse_date(self, text):
-        # Convert a human readable date string into YYYY-MM-DD format.
+        """Convert a human readable date string into YYYY-MM-DD format."""
         if text:
             prefix = ''
 
@@ -793,7 +789,7 @@ class alloc(object):
         return text
 
     def person_to_personID(self, name):
-        # Convert a person's name into their alloc personID.
+        """Convert a person's name into their alloc personID."""
         if isinstance(name, str):
             name = [name]
 
@@ -819,8 +815,7 @@ class alloc(object):
         return r
 
     def parse_date_comparator(self, date):
-        # Split a comparator and a date eg: '>=2011-10-10' becomes
-        # ['>=','2011-10-10'].
+        """Split a comparator and a date eg: '>=2011-10-10' becomes ['>=','2011-10-10']."""
         try:
             comparator, d = re.findall(r'[\d|-]+|\D+', date)
         except Exception:
@@ -829,11 +824,11 @@ class alloc(object):
         return d.strip(), comparator.strip()
 
     def get_alloc_modules(self):
-        # Get all the alloc subcommands/modules.
+        """Get all the alloc subcommands/modules."""
         return sys.modules['alloccli'].__all__
 
     def get_cli_help(self):
-        # Get the command line help.
+        """Get the command line help."""
         print("Usage: " + self.client_name + " command [OPTIONS]")
         print("Select one of the following commands:\n")
 
@@ -851,7 +846,7 @@ class alloc(object):
         print("\nEg: " + self.client_name + " command --help")
 
     def which(self, name, flags=os.X_OK):
-        # Search PATH for executable files with the given name.
+        """Search PATH for executable files with the given name."""
         result = []
         exts = [item for item in os.environ.get(
             'PATHEXT', '').split(os.pathsep) if item]
