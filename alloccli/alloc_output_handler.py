@@ -23,10 +23,10 @@ if 'set_field_names' not in dir(PrettyTable):
 
 class alloc_output_handler:
 
-    # alloc library for outputting ascii or csv tables
+    """alloc library for outputting ascii or csv tables"""
 
     def __get_only_these_fields(self, alloc, entity, rows, only_these_fields):
-        # Reduce a list by removing certain columns/fields.
+        """Reduce a list by removing certain columns/fields."""
         rtn = []
         inverted_field_names = dict(
             [[v, k] for k, v in alloc.field_names[entity].items()])
@@ -55,7 +55,7 @@ class alloc_output_handler:
         return rtn
 
     def __get_sorted_rows(self, alloc, entity, rows, sortby):
-        # Sort the rows of a list.
+        """Sort the rows of a list."""
         f = ''  # satisfy pylint
         rows = rows.items()
         if not sortby:
@@ -104,7 +104,7 @@ class alloc_output_handler:
         return rows
 
     def __get_widest_field_lengths(self, rows, field_names):
-        # Obtain max lengths of rows of fields.
+        """Obtain max lengths of rows of fields."""
         # Note that an empty field's column header can still have additional
         # padding, if another value in its column is wider.
         x = 0
@@ -122,7 +122,7 @@ class alloc_output_handler:
         return lengths
 
     def __fit_rows_to_screen(self, alloc, rows, field_names, width):
-        # Truncate the final column in a table so that it fits on the screen.
+        """Truncate the final column in a table so that it fits on the screen."""
 
         # We only truncate the rows if we've been configured to
         if 'alloc_trunc' not in alloc.config or not alloc.config['alloc_trunc']:
@@ -162,7 +162,7 @@ class alloc_output_handler:
         return rows2
 
     def print_table(self, alloc, entity, rows, only_these_fields, sort=False, transforms=None):
-        # For printing out results in an ascii table or CSV format.
+        """For printing out results in an ascii table or CSV format."""
         if alloc.quiet:
             return
         if not rows:
@@ -222,7 +222,7 @@ class alloc_output_handler:
             sys.stdout.flush()
 
     def __get_row(self, alloc, entity, row, only_these_fields, transforms=None):
-        # Load up the items for one row for a pretty table or csv output.
+        """Load up the items for one row for a pretty table or csv output."""
         r = []
         for v in only_these_fields[::2]:
             value = ''
