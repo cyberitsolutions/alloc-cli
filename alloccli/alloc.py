@@ -404,7 +404,7 @@ class alloc(object):
         # empty string.
         r = defaultdict(str)
         for a, b in row.items():
-            r[a] = str(b or '')
+            r[a] = b or ''
         return r
 
     def print_task(self, taskID, prependEmailHeader=False, children=False):
@@ -706,8 +706,7 @@ class alloc(object):
     def dbg(self, s):
         # Print a message to the screen (stdout) for debugging only.
         if self.debug:
-            print "DBG " + str(s)
-            sys.stdout.flush()
+            sys.stderr.write("DBG " + str(s) + '\n')
 
     def parse_email(self, email):
         # Parse an email address from this: Jon Smit <js@example.com> into:
