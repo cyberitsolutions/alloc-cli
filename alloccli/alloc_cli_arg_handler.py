@@ -11,7 +11,7 @@ class alloc_cli_arg_handler:
     # alloc library for handling command line arguments
 
     def get_subcommand_help(self, command_list, ops, text):
-        # Get help text for a subcommand.
+        """Get help text for a subcommand."""
         help_str = ""
         for line in ops:
             # These are null or spaces to keep things aligned.
@@ -37,7 +37,7 @@ class alloc_cli_arg_handler:
         return text % (os.path.basename(" ".join(command_list[0:2])), help_str.rstrip())
 
     def __parse_args(self, ops):
-        # Return three dictionaries that disambiguate the types of command line args. Use alloc.get_args.
+        """Return three dictionaries that disambiguate the types of command line args. Use alloc.get_args."""
         no_arg_ops = {}
         all_ops = {}
         all_ops_list = []
@@ -71,7 +71,7 @@ class alloc_cli_arg_handler:
         return no_arg_ops, all_ops, all_ops_list
 
     def get_args(self, alloc, command_list, ops, s):
-        # This function allows us to handle the cli arguments efficiently.
+        """This function allows us to handle the cli arguments efficiently."""
         options = []
         rtn = {}
 

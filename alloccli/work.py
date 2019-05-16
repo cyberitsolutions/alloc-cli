@@ -240,7 +240,7 @@ Unfortunately doing so appears to flush the input buffer!)
             self.die("No time was added.")
 
     def add_time(self, stuff):
-        # Add time to a time sheet using a task as reference.
+        """Add time to a time sheet using a task as reference."""
         if self.dryrun:
             return ''
         args = {}
