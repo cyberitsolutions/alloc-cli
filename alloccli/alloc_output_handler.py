@@ -1,4 +1,5 @@
 # alloc library for outputting ascii or csv tables
+from __future__ import print_function
 import sys
 import re
 import csv
@@ -217,7 +218,7 @@ class alloc_output_handler:
                         alloc, rows, field_names, width)
             for row in rows:
                 table.add_row(row)
-            print unicode(table.get_string(header=True)).encode('utf-8')
+            print(unicode(table.get_string(header=True)).encode('utf-8'))
             # http://stackoverflow.com/questions/15793886/how-to-avoid-a-broken-pipe-error-when-printing-a-large-amount-of-formatted-data
             sys.stdout.flush()
 
