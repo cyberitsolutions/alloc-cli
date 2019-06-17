@@ -71,7 +71,7 @@ alloc mbox -t 1234 > file.mbox'''
 
             # If we're redirecting stdout eg alloc mbox -t 123 >task123.html
             if not stdout.isatty():
-                print unicode(s).encode('utf-8')
+                print(unicode(s).encode('utf-8'))
 
             else:
                 try:

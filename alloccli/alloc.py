@@ -1,4 +1,5 @@
 """alloc library"""
+from __future__ import print_function
 import os
 import sys
 import simplejson
@@ -682,13 +683,13 @@ class alloc(object):
     def msg(self, s):
         """Print a message to the screen (stdout)."""
         if not self.quiet:
-            print "--- " + str(s)
+            print("--- " + str(s))
             sys.stdout.flush()
 
     def yay(self, s):
         """Print a success message to the screen (stdout)."""
         if not self.quiet:
-            print ":-] " + str(s)
+            print(":-] " + str(s))
             sys.stdout.flush()
 
     def err(self, s):
