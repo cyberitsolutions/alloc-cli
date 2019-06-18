@@ -1,5 +1,5 @@
 """alloccli subcommand for viewing a list of invoices."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class invoices(alloc):

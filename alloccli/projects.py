@@ -1,5 +1,5 @@
 """alloccli subcommand for viewing a list of projects."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class projects(alloc):

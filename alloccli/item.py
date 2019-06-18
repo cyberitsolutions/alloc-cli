@@ -1,5 +1,5 @@
 """alloccli subcommand for editing alloc time sheet items."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class item(alloc):
@@ -60,7 +60,7 @@ alloc item --tsid 7941 --duration 3.5 --date 2011-07-24 --comment hey --task 151
             o['task'] = self.search_for_task({'taskName': o['task']})
 
         package = {}
-        for key, val in o.items():
+        for key, val in list(o.items()):
             if val:
                 package[key] = val
             if isinstance(val, str) and val.lower() == 'null':

@@ -1,5 +1,5 @@
 """alloccli subcommand for viewing a list of reminders."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class reminders(alloc):
@@ -54,7 +54,7 @@ alloc reminders -t 1234'''
         rows = self.get_list("reminder", options)
 
         # Compact the type field and the frequency
-        for k_, row in rows.items():
+        for k_, row in list(rows.items()):
             row['link'] = ''
             if row['reminderType']:
                 row['link'] = "%s %s" % (

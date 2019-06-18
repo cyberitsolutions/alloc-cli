@@ -1,19 +1,19 @@
 """alloc library"""
-from __future__ import print_function
+
 import os
 import sys
 import simplejson
 import re
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import datetime
-import ConfigParser
+import configparser
 import subprocess
 from netrc import netrc
-from urlparse import urlparse
+from urllib.parse import urlparse
 from collections import defaultdict
-from alloc_output_handler import alloc_output_handler
-from alloc_cli_arg_handler import alloc_cli_arg_handler
+from .alloc_output_handler import alloc_output_handler
+from .alloc_cli_arg_handler import alloc_cli_arg_handler
 
 
 class alloc(object):
@@ -253,7 +253,7 @@ class alloc(object):
         self.quiet = ''
         self.csv = False
 
-        for k, v in self.config.items():
+        for k, v in list(self.config.items()):
             self.dbg("CONF: " + k + ": " + v)
 
     def initialize_http_connection(self):
@@ -261,17 +261,17 @@ class alloc(object):
         if self.http_password:
             # create a password manager
             top_level_url = "/".join(self.url.split("/")[0:3])
-            password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
+            password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
             password_mgr.add_password(
                 None, top_level_url, self.http_username, self.http_password)
-            handler = urllib2.HTTPBasicAuthHandler(password_mgr)
-            self.url_opener = urllib2.build_opener(handler)
+            handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
+            self.url_opener = urllib.request.build_opener(handler)
         else:
-            self.url_opener = urllib2.build_opener()
+            self.url_opener = urllib.request.build_opener()
 
         self.url_opener.addheaders = [
             ('User-agent', 'alloc-cli %s' % self.username)]
-        urllib2.install_opener(self.url_opener)
+        urllib.request.install_opener(self.url_opener)
 
     def create_config(self, config_file):
         """Create a default ~/.alloc/config file."""
@@ -290,7 +290,7 @@ class alloc(object):
 
     def load_config(self, config_file):
         """Read the ~/.alloc/config file and load it into self.config[]."""
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read([config_file])
         section = os.environ.get("ALLOC") or 'main'
         try:
@@ -366,9 +366,9 @@ class alloc(object):
                 self.die("Found more than one project matching: %s" %
                          projectName)
             elif len(projects) > 1 and not die:
-                return projects.keys()
+                return list(projects.keys())
             elif len(projects) == 1:
-                return projects.keys()[0]
+                return list(projects.keys())[0]
 
     def search_for_task(self, ops):
         """Search for a task like *taskName*."""
@@ -383,7 +383,7 @@ class alloc(object):
                 self.die("Found more than one task matching: %s" %
                          ops["taskName"])
             elif len(tasks) == 1:
-                return tasks.keys()[0]
+                return list(tasks.keys())[0]
 
     def search_for_client(self, ops):
         """Search for a client like *clientName*."""
@@ -397,12 +397,12 @@ class alloc(object):
                 self.die("Found more than one client matching: %s" %
                          ops["clientName"])
             elif len(clients) == 1:
-                return clients.keys()[0]
+                return list(clients.keys())[0]
 
     def sloppydict(self, row):
         """Coerce a dict with perhaps missing keys or a value of None to an empty string."""
         r = defaultdict(str)
-        for a, b in row.items():
+        for a, b in list(row.items()):
             r[a] = b or ''
         return r
 
@@ -415,7 +415,7 @@ class alloc(object):
             self.die("No task found with ID: " + str(taskID))
 
         final_str = ''
-        for k, r in rtn.items():
+        for k, r in list(rtn.items()):
             del(k)
             r = self.sloppydict(r)
 
@@ -497,7 +497,7 @@ class alloc(object):
                 s += '\nChild Tasks:\n\n'
                 # For CSV output this might need to do something saner
                 # on the other hand, view doesn't work right with CSV anyway
-                for c in tasks.values():
+                for c in list(tasks.values()):
                     s += '%s %s\n' % (c['taskID'], c['taskName'])
 
             s += '\n\n'
@@ -627,7 +627,7 @@ class alloc(object):
         try:
             self.dbg("make_request(): " + str(args))
             self.url_opener.open(self.url)
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             self.err(str(e))
             self.err("Possibly a bad username or password for HTTP AUTH")
             self.err("The settings ALLOC_HTTP_USER and ALLOC_HTTP_PASS are required.")
@@ -637,7 +637,7 @@ class alloc(object):
 
         args["client_version"] = self.client_version
         args["sessID"] = self.sessID
-        rtn = urllib2.urlopen(self.url, urllib.urlencode(args)).read()
+        rtn = urllib.request.urlopen(self.url, urllib.parse.urlencode(args).encode("utf8")).read()
         try:
             rtn = simplejson.loads(rtn)
         except Exception:
@@ -653,7 +653,7 @@ class alloc(object):
             self.authenticate()
             args['sessID'] = self.sessID
             self.dbg("executing: %s" % args)
-            rtn2 = urllib2.urlopen(self.url, urllib.urlencode(args)).read()
+            rtn2 = urllib.request.urlopen(self.url, urllib.parse.urlencode(args)).read()
             try:
                 return simplejson.loads(rtn2)
             except Exception:
@@ -674,7 +674,7 @@ class alloc(object):
 
     def get_alloc_html(self, url):
         """Perform a direct fetch of an alloc page, ala wget/curl."""
-        return urllib2.urlopen(url).read()
+        return urllib.request.urlopen(url).read()
 
     def today(self):
         """Wrapper to return the date, so I don't have to import datetime into all the modules."""

@@ -1,5 +1,5 @@
 """alloccli subcommand for editing alloc entities."""
-from alloc import alloc
+from .alloc import alloc
 
 # edit.py is BEING DEPRECATED. Don't make any non-critical changes to this
 # file.
@@ -113,7 +113,7 @@ alloc edit -t 1234 --assignee null"""
             o['task'] = self.search_for_task({'taskName': o['task']})
 
         package = {}
-        for key, val in o.items():
+        for key, val in list(o.items()):
             if val:
                 package[key] = val
             if isinstance(val, str) and val.lower() == 'null':

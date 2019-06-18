@@ -1,5 +1,5 @@
 # alloc library for outputting ascii or csv tables
-from __future__ import print_function
+
 import sys
 import re
 import csv
@@ -30,12 +30,12 @@ class alloc_output_handler:
         """Reduce a list by removing certain columns/fields."""
         rtn = []
         inverted_field_names = dict(
-            [[v, k] for k, v in alloc.field_names[entity].items()])
+            [[v, k] for k, v in list(alloc.field_names[entity].items())])
 
         # Print all fields
         if 'all' in only_these_fields:
-            for k, v in rows.items():
-                for name, value in v.items():
+            for k, v in list(rows.items()):
+                for name, value in list(v.items()):
                     del(value)  # pylint
                     rtn.append(name)
                     if name in alloc.field_names[entity]:
@@ -58,10 +58,10 @@ class alloc_output_handler:
     def __get_sorted_rows(self, alloc, entity, rows, sortby):
         """Sort the rows of a list."""
         f = ''  # satisfy pylint
-        rows = rows.items()
+        rows = list(rows.items())
         if not sortby:
             return rows
-        inverted_field_names = dict([[v, k] for k, v in alloc.field_names[entity].items()])
+        inverted_field_names = dict([[v, k] for k, v in list(alloc.field_names[entity].items())])
 
         sortby.reverse()
 
@@ -151,7 +151,7 @@ class alloc_output_handler:
 
             # fn will be the final cell in the row
             sum_of_bits = 0
-            for k, l in lengths.items():
+            for k, l in list(lengths.items()):
                 if k != fn:
                     sum_of_bits += l + 3
 
@@ -194,9 +194,9 @@ class alloc_output_handler:
             # FIXME: This shows the header for the CSV. It should have a CLI
             # option to turn it on, but for now, just print it always and let
             # the user filter it out if necessary.
-            csv_table.writerow([unicode(s).encode('utf-8') for s in field_names])
+            csv_table.writerow([str(s).encode('utf-8') for s in field_names])
             for row in rows:
-                csv_table.writerow([unicode(s).encode('utf-8') for s in row])
+                csv_table.writerow([str(s).encode('utf-8') for s in row])
 
         else:
             table = PrettyTable()
@@ -218,7 +218,7 @@ class alloc_output_handler:
                         alloc, rows, field_names, width)
             for row in rows:
                 table.add_row(row)
-            print(unicode(table.get_string(header=True)).encode('utf-8'))
+            print(table.get_string(header=True))
             # http://stackoverflow.com/questions/15793886/how-to-avoid-a-broken-pipe-error-when-printing-a-large-amount-of-formatted-data
             sys.stdout.flush()
 

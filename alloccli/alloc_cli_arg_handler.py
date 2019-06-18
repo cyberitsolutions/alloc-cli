@@ -1,5 +1,5 @@
 # alloc library for handling command line arguments.
-from __future__ import print_function
+
 import os
 import sys
 import re
@@ -95,7 +95,7 @@ class alloc_cli_arg_handler:
             prog=os.path.basename(" ".join(sys.argv[0:2])), add_help=False)
 
         # FIXME:: this is not very nice to read, add explainations at some point.
-        for k, v in all_ops.items():
+        for k, v in list(all_ops.items()):
             a1 = []
             a2 = {}
             a2['dest'] = k
@@ -121,7 +121,7 @@ class alloc_cli_arg_handler:
         options = parser.parse_args(sys.argv[2:])
 
         # Turn the options into a dict
-        for opt, val in vars(options).items():
+        for opt, val in list(vars(options).items()):
             rtn[opt] = val
 
         # If --help print help and die
