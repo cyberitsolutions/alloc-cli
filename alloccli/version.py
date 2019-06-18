@@ -1,5 +1,5 @@
 """Subcommand for viewing the cli and server versions."""
-from alloc import alloc
+from .alloc import alloc
 import sys
 import os
 

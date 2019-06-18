@@ -1,5 +1,5 @@
 """alloccli subcommand for editing alloc tasks."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class task(alloc):

@@ -1,17 +1,9 @@
 """alloccli subcommand for billing time for work done."""
-from alloc import alloc
+from .alloc import alloc
 import sys
 import datetime
 import time
 import threading
-
-# temporary compat for python2
-try:
-    import __builtin__
-    input = getattr(__builtin__, 'raw_input')
-except (ImportError, AttributeError):
-    pass
-
 
 class timer(threading.Thread):
 
@@ -94,16 +86,12 @@ Unfortunately doing so appears to flush the input buffer!)
 
         # Get vars manually
         if prompt:
-            o['task'] = input(
-                "Task ID or some text from a task's name, or hit ENTER for none: ")
+            o['task'] = input("Task ID or some text from a task's name, or hit ENTER for none: ")
             if not o['task']:
-                o['project'] = input(
-                    "Project ID or some text from a project's name: ")
+                o['project'] = input("Project ID or some text from a project's name: ")
             o['hours'] = input("The number of hours you are billing: ")
-            o['multiplier'] = input(
-                "The rate multiplier (0, 1, 1.5, 2, 3), or hit ENTER for 1: ")
-            o['date'] = input(
-                "The date that the work was performed, or hit ENTER for %s: " % self.today())
+            o['multiplier'] = input("The rate multiplier (0, 1, 1.5, 2, 3), or hit ENTER for 1: ")
+            o['date'] = input("The date that the work was performed, or hit ENTER for %s: " % self.today())
             o['comment'] = input("Comments: ")
 
         # If we're running interactively

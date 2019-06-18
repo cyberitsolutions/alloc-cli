@@ -1,6 +1,6 @@
 """alloccli subcommand for viewing a list of comment subscriptions."""
 import sys
-from alloc import alloc
+from .alloc import alloc
 
 
 class subscriptions(alloc):

@@ -1,6 +1,6 @@
 """alloccli subcommand for TF accounts."""
-from __future__ import print_function
-from alloc import alloc
+
+from .alloc import alloc
 
 class accounts(alloc):
 

@@ -1,5 +1,5 @@
 """alloccli subcommand for editing alloc time sheet items."""
-from alloc import alloc
+from .alloc import alloc
 
 
 class item(alloc):

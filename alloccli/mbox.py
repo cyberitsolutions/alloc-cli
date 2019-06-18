@@ -1,11 +1,11 @@
 """alloccli subcommand for downloading alloc comments to mbox file."""
-from __future__ import with_statement
+
 import tempfile
 import os
 import subprocess
 from sys import stdout
 from contextlib import closing
-from alloc import alloc
+from .alloc import alloc
 
 
 class mbox(alloc):
@@ -71,14 +71,14 @@ alloc mbox -t 1234 > file.mbox'''
 
             # If we're redirecting stdout eg alloc mbox -t 123 >task123.html
             if not stdout.isatty():
-                print(unicode(s).encode('utf-8'))
+                print((str(s).encode('utf-8')))
 
             else:
                 try:
                     fd, filepath = tempfile.mkstemp(
                         prefix="alloc-%s_" % taskID, suffix=".mbox")
                     with closing(os.fdopen(fd, 'wb')) as tf:
-                        tf.write(unicode(s).encode('utf-8'))
+                        tf.write(str(s).encode('utf-8'))
                     subprocess.check_call(
                         [os.getenv("MAILER") or "mutt", "-f", filepath])
                 finally:

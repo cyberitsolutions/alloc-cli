@@ -1,8 +1,8 @@
 """alloccli subcommand for launching your $BROWSER at alloc."""
-from __future__ import print_function
+
 import os
 from sys import stdout
-from alloc import alloc
+from .alloc import alloc
 
 
 class browse(alloc):

@@ -1,6 +1,6 @@
 """alloccli subcommand for viewing the details of a single entity."""
-from __future__ import print_function
-from alloc import alloc
+
+from .alloc import alloc
 
 class view(alloc):
 
