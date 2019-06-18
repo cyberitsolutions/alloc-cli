@@ -30,12 +30,12 @@ class alloc_output_handler:
         """Reduce a list by removing certain columns/fields."""
         rtn = []
         inverted_field_names = dict(
-            [[v, k] for k, v in list(alloc.field_names[entity].items())])
+            [[v, k] for k, v in alloc.field_names[entity].items()])
 
         # Print all fields
         if 'all' in only_these_fields:
-            for k, v in list(rows.items()):
-                for name, value in list(v.items()):
+            for k, v in rows.items():
+                for name, value in v.items():
                     del(value)  # pylint
                     rtn.append(name)
                     if name in alloc.field_names[entity]:
@@ -61,7 +61,7 @@ class alloc_output_handler:
         rows = list(rows.items())
         if not sortby:
             return rows
-        inverted_field_names = dict([[v, k] for k, v in list(alloc.field_names[entity].items())])
+        inverted_field_names = dict([[v, k] for k, v in alloc.field_names[entity].items()])
 
         sortby.reverse()
 
@@ -151,7 +151,7 @@ class alloc_output_handler:
 
             # fn will be the final cell in the row
             sum_of_bits = 0
-            for k, l in list(lengths.items()):
+            for k, l in lengths.items():
                 if k != fn:
                     sum_of_bits += l + 3
 

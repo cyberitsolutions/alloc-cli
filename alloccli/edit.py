@@ -113,7 +113,7 @@ alloc edit -t 1234 --assignee null"""
             o['task'] = self.search_for_task({'taskName': o['task']})
 
         package = {}
-        for key, val in list(o.items()):
+        for key, val in o.items():
             if val:
                 package[key] = val
             if isinstance(val, str) and val.lower() == 'null':

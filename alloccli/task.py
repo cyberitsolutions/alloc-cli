@@ -78,7 +78,7 @@ alloc task -t 1234 --assignee null"""
             o['project'] = self.search_for_project(o['project'], personID)
 
         package = {}
-        for key, val in list(o.items()):
+        for key, val in o.items():
             if val:
                 package[key] = val
             if isinstance(val, str) and val.lower() == 'null':

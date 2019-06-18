@@ -158,7 +158,7 @@ In this example the recipients are going to be internal only, except for Clyde
         comma = ""
         text = ""
         if recipients:
-            for k_, info in list(recipients.items()):
+            for k_, info in recipients.items():
                 text += comma + (info.get('name') or '') + \
                     " <" + (info.get('emailAddress') or '') + ">"
                 comma = ", "

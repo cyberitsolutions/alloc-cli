@@ -54,7 +54,7 @@ alloc reminders -t 1234'''
         rows = self.get_list("reminder", options)
 
         # Compact the type field and the frequency
-        for k_, row in list(rows.items()):
+        for k_, row in rows.items():
             row['link'] = ''
             if row['reminderType']:
                 row['link'] = "%s %s" % (

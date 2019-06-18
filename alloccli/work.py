@@ -80,7 +80,7 @@ Unfortunately doing so appears to flush the input buffer!)
 
         # Gather information manually?
         prompt = True
-        for k, v in list(o.items()):
+        for k, v in o.items():
             if v and (k != 'dryrun' and k != 'quiet' and k != 'interactive'):
                 prompt = False
 

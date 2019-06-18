@@ -78,13 +78,13 @@ alloc reminder --title 'Name for the reminder.' --to alla"""
 
         if o['to']:
             o['recipients'] = [x['personID']
-                               for x in list(self.get_people(o['to']).values())]
+                               for x in self.get_people(o['to']).values()]
         if o['remove']:
             o['recipients_remove'] = [x['personID']
-                                      for x in list(self.get_people(o['remove']).values())]
+                                      for x in self.get_people(o['remove']).values()]
 
         package = {}
-        for key, val in list(o.items()):
+        for key, val in o.items():
             if val:
                 package[key] = val
             if isinstance(val, str) and val.lower() == 'null':

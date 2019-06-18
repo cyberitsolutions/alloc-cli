@@ -130,7 +130,7 @@ alloc timesheets --date ">=2010-10-10" --items'''
             timeSheets = self.get_list("timeSheet", ops)
             if timeSheets:
                 tids = []
-                for i, t_ in list(timeSheets.items()):
+                for i, t_ in timeSheets.items():
                     tids.append(i)
                 if tids:
                     ops["timeSheetID"] = tids

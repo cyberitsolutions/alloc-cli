@@ -252,7 +252,7 @@ class alloc(object):
         self.quiet = ''
         self.csv = False
 
-        for k, v in list(self.config.items()):
+        for k, v in self.config.items():
             self.dbg("CONF: " + k + ": " + v)
 
     def initialize_http_connection(self):
@@ -401,7 +401,7 @@ class alloc(object):
     def sloppydict(self, row):
         """Coerce a dict with perhaps missing keys or a value of None to an empty string."""
         r = defaultdict(str)
-        for a, b in list(row.items()):
+        for a, b in row.items():
             r[a] = b or ''
         return r
 
@@ -414,7 +414,7 @@ class alloc(object):
             self.die("No task found with ID: " + str(taskID))
 
         final_str = ''
-        for k, r in list(rtn.items()):
+        for k, r in rtn.items():
             del(k)
             r = self.sloppydict(r)
 
@@ -496,7 +496,7 @@ class alloc(object):
                 s += '\nChild Tasks:\n\n'
                 # For CSV output this might need to do something saner
                 # on the other hand, view doesn't work right with CSV anyway
-                for c in list(tasks.values()):
+                for c in tasks.values():
                     s += '%s %s\n' % (c['taskID'], c['taskName'])
 
             s += '\n\n'
