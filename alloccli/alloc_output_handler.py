@@ -194,9 +194,9 @@ class alloc_output_handler:
             # FIXME: This shows the header for the CSV. It should have a CLI
             # option to turn it on, but for now, just print it always and let
             # the user filter it out if necessary.
-            csv_table.writerow([str(s).encode('utf-8') for s in field_names])
+            csv_table.writerow([str(s) for s in field_names])
             for row in rows:
-                csv_table.writerow([str(s).encode('utf-8') for s in row])
+                csv_table.writerow([str(s) for s in row])
 
         else:
             table = PrettyTable()
