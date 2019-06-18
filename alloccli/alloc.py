@@ -627,12 +627,12 @@ class alloc(object):
         try:
             self.dbg("make_request(): " + str(args))
             self.url_opener.open(self.url)
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError as e:
             self.err(str(e))
             self.err("Possibly a bad username or password for HTTP AUTH")
             self.err("The settings ALLOC_HTTP_USER and ALLOC_HTTP_PASS are required.")
             self.die("Set them either in the shell environment or in your ~/.alloc/config")
-        except Exception, e:
+        except Exception as e:
             self.die(str(e))
 
         args["client_version"] = self.client_version
