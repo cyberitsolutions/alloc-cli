@@ -5,7 +5,6 @@ import sys
 import simplejson
 import re
 import urllib.request, urllib.parse, urllib.error
-import urllib.request, urllib.error, urllib.parse
 import datetime
 import configparser
 import subprocess
