@@ -652,7 +652,7 @@ class alloc(object):
             self.authenticate()
             args['sessID'] = self.sessID
             self.dbg("executing: %s" % args)
-            rtn2 = urllib.request.urlopen(self.url, urllib.parse.urlencode(args)).read()
+            rtn2 = urllib.request.urlopen(self.url, urllib.parse.urlencode(args).encode("utf8")).read()
             try:
                 return simplejson.loads(rtn2)
             except Exception:
