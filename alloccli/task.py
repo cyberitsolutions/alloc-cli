@@ -77,6 +77,22 @@ alloc task -t 1234 --assignee null"""
         if o['project'] and not self.is_num(o['project']):
             o['project'] = self.search_for_project(o['project'], personID)
 
+        # get the default interested parties (dip) if none are provided
+        if o['project'] and not o['dip']:
+            searchops = {}
+            searchops['entity'] = 'project'
+            searchops['entityID'] = o['project']
+            searchops['active'] = 1
+            parties = self.get_list("interestedParty", searchops)
+            o['dip'] = ''
+            for i in parties:
+                # this is messy, but needed as alloc expects o['dip'] to be
+                # formatted like: "jenny@example.com, john@example.com"
+                tmp = ''
+                if o['dip'] != '':
+                    tmp = o['dip'] + ', '
+                o['dip'] = tmp + str(parties[i]['emailAddress'])
+
         package = {}
         for key, val in o.items():
             if val:
