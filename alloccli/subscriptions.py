@@ -79,9 +79,11 @@ alloc subscriptions --add < foo.txt"""
         # Get a taskID either passed via command line, or figured out from a
         # task name
         if self.is_num(o['task']):
-            searchops['taskID'] = o['task']
+            searchops['entity'] = 'task'
+            searchops['entityID'] = o['task']
         elif o['task']:
-            searchops['taskID'] = self.search_for_task({"taskName": o["task"]})
+            searchops['entity'] = 'task'
+            searchops['entityID'] = self.search_for_task({"taskName": o["task"]})
 
         # Look for the interested parties, using the criteria from above
         if not o['add'] and not o['del']:
