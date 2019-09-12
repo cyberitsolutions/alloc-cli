@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+## NOTE: https://wiki.debian.org/Python/Pybuild
+export PYBUILD_NAME=alloccli
+
+%:
+	dh $@ --with=python3 --buildsystem=pybuild

@@ -1,1 +1,16 @@
 *.pyc
+.pybuild/
+alloc.egg-info/
+build/
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/python3-alloc.postinst.debhelper
+debian/python3-alloc.prerm.debhelper
+debian/python3-alloc.substvars
+debian/python3-alloc/
+alloccli.egg-info/
+debian/python3-alloccli.postinst.debhelper
+debian/python3-alloccli.prerm.debhelper
+debian/python3-alloccli.substvars
+debian/python3-alloccli/
