@@ -1,0 +1,5 @@
+alloccli (1.8.9~git20190912.97bbd22a) unstable; urgency=medium
+
+  * Initial packaging.
+
+ -- Christopher Bayliss <cjb@cyber.com.au>  Tue, 17 Sep 2019 13:00:00 +1000
