@@ -3,6 +3,7 @@
 import sys
 import re
 import csv
+import functools
 import subprocess
 from prettytable import PrettyTable
 from sys import stdout
@@ -96,12 +97,28 @@ class alloc_output_handler:
                     except Exception:
                         return val
 
+        # Python 3 considers it an error to sort by rates like this:
+        #   sorted([0.0, 0.0, 0.0, 0.0, '', 0.0])
+        # We cannot simply always return a 0, because sort_func() cannot "see" the other rows.
+        #
+        # Therefore reimplement the shitty Python2 semantics here (roughly).
+        # Thanks to nedbat on #python.
+        def bullshit_compare_function(x, y):
+            x, y = sort_func(x), sort_func(y)
+            try:
+                return x < y
+            except TypeError:
+                return str(type(x)) < str(type(y))
+
+
         for f in sortby:
             reverse = False
             if f and f[0] == "_":
                 reverse = True
                 f = f[1:]  # chop leading underscore
-            rows = sorted(rows, key=sort_func, reverse=reverse)
+            rows.sort(
+                reverse=reverse,
+                key=functools.cmp_to_key(bullshit_compare_function))
         return rows
 
     def __get_widest_field_lengths(self, rows, field_names):
