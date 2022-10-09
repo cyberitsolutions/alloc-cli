@@ -762,7 +762,7 @@ class alloc(object):
                 text = m.group(2)
 
             p = subprocess.Popen(
-                ['date', '-d', text, '+%F'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                ['date', '-d', text, '+%F'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             output, errors = p.communicate()
             output = output.strip()
             errors = errors.strip()
