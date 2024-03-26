@@ -16,7 +16,7 @@ class timesheets(alloc):
     ops.append(('p:', 'project=ID|NAME', 'A project ID, or a fuzzy match for a project name.'))
     ops.append(('', 'task=ID|NAME     ', 'A task ID, or a fuzzy match for a task name.'))
     ops.append(('s:', 'status=STATUS  ', 'The time sheets\' status. Can accept multiple values.\n'
-                                         '(eg: "edit,manager,admin,invoiced,finished,rejected" or "all". Default: edit)'))
+                                         '(eg: -s edit -s manager -s admin -s invoiced -s finished -s rejected or -s all. Default: edit)'))
     ops.append(('a:', 'account=TF     ', 'The time sheets\' TF name.'))
     ops.append(('c:', 'creator=NICK   ', 'The time sheets\' creator username.'))
     ops.append(('t:', 'tsid=ID        ', 'A time sheet ID.'))
